@@ -1,7 +1,8 @@
 name: Deployment
+
 on:
-  release:
-    types: [created]
+  push:
+    branches: [ main ]
 
 env:
     DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT }}
@@ -17,4 +18,4 @@ jobs:
     - name: Add Remote
       run: git remote add dokku dokku@142.93.43.69:gh-action-test
     - name: Deploy
-      run: git push dokku main:master
+      run: git push dokku 
