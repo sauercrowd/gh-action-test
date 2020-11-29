@@ -1,0 +1,18 @@
+name: Deployment
+on:
+  release:
+    types: [created]
+
+env:
+    DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT }}
+
+jobs:
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup SSH key
+      run: mkdir -p ~/.ssh && echo "$DEPLOYMENT_KEY" > ~/.ssh/id_rsa
+    - name: Add Remote
+      run: git remote add dokku dokku@142.93.43.69:gh-action-test
+    - name: Deploy
+      run: git push dokku main:master
