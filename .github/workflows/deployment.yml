@@ -6,16 +6,19 @@ on:
 
 env:
     DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT }}
+    HOST: 142.93.43.69
 
 jobs:
-  greet:
+  deploy to dokku:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Setup SSH key
       run: mkdir -p ~/.ssh && echo "$DEPLOYMENT_KEY" > ~/.ssh/id_rsa
+    - name: Accept ssh remote
+      run: ssh-keyscan -t rsa $HOST >> ~/.ssh/known_hosts
     - name: Add Remote
-      run: git remote add dokku dokku@142.93.43.69:gh-action-test
+      run: git remote add dokku dokku@$HOST:gh-action-test
     - name: Deploy
       run: git push dokku 
