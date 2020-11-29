@@ -9,7 +9,7 @@ env:
     HOST: 142.93.43.69
 
 jobs:
-  deploy to dokku:
+  deploy_to_dokku:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
